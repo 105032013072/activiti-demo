@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmnx="http://www.bosssoft.com.cn/bpmnx" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_1" name="测试流程" isExecutable="true" bpmnx:globalNotification="true" bpmnx:version="1">
+    <bpmn:extensionElements>
+      <bpmnx:formDefinition formPage="" formType="" />
+      <bpmnx:timeEffectiveDefinition calendar="workingday" timeDuration="0.000" />
+      <bpmnx:channelDefinition>
+        <bpmnx:channelType value="custom" />
+      </bpmnx:channelDefinition>
+      <bpmnx:notificationDefinition>
+        <bpmnx:notificationType value="NEWTASK" />
+        <bpmnx:notificationType value="DELEGATE" />
+        <bpmnx:notificationType value="SUBSTITUTION" />
+        <bpmnx:notificationType value="COOPERATION" />
+        <bpmnx:notificationType value="CONFIRM" />
+        <bpmnx:notificationType value="REDO" />
+        <bpmnx:notificationType value="REJECT" />
+        <bpmnx:notificationType value="PROCESSREVOKE" />
+      </bpmnx:notificationDefinition>
+      <bpmnx:authorityDefinition>
+        <bpmnx:revokeDefinition enable="true" />
+        <bpmnx:consignDefinition enable="true">
+          <bpmnx:consignType value="delegate" />
+        </bpmnx:consignDefinition>
+      </bpmnx:authorityDefinition>
+      <bpmnx:starterDefinition type="arbitrary">
+        <bpmnx:participators />
+      </bpmnx:starterDefinition>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1" name="" activiti:formKey="undefined" activiti:initiator="undefined">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>SequenceFlow_0dlmni4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0dlmni4" sourceRef="StartEvent_1" targetRef="A" />
+    <bpmn:userTask id="A" name="A">
+      <bpmn:documentation></bpmn:documentation>
+      <bpmn:extensionElements>
+        <bpmnx:participatorDefinition participatorType="assignee">
+          <bpmnx:candidate participatorSource="DEFAULT">
+            <bpmnx:participators>
+              <bpmnx:participator type="ROLE" id="r01" name="部门经理" />
+            </bpmnx:participators>
+          </bpmnx:candidate>
+          <bpmnx:assignee participatorSource="DEFAULT">
+            <bpmnx:participators>
+              <bpmnx:participator type="USER" id="u01" name="小明" />
+            </bpmnx:participators>
+          </bpmnx:assignee>
+        </bpmnx:participatorDefinition>
+        <bpmnx:formDefinition formPage="" formType="" />
+        <bpmnx:timeEffectiveDefinition calendar="workingday" timeDuration="0.000" />
+        <bpmnx:authorityDefinition>
+          <bpmnx:consignDefinition enable="true">
+            <bpmnx:consignType value="delegate" />
+            <bpmnx:consignType value="substitution" />
+            <bpmnx:consignType value="cooperation" />
+          </bpmnx:consignDefinition>
+        </bpmnx:authorityDefinition>
+        <bpmnx:notificationDefinition>
+          <bpmnx:notificationType value="NEWTASK" />
+          <bpmnx:notificationType value="DELEGATE" />
+          <bpmnx:notificationType value="SUBSTITUTION" />
+          <bpmnx:notificationType value="COOPERATION" />
+          <bpmnx:notificationType value="CONFIRM" />
+        </bpmnx:notificationDefinition>
+        <bpmnx:carbonCopy>
+          <bpmnx:participators />
+        </bpmnx:carbonCopy>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0dlmni4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1px4on2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_02nrfk0" name="">
+      <bpmn:extensionElements />
+      <bpmn:incoming>SequenceFlow_1px4on2</bpmn:incoming>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1px4on2" sourceRef="A" targetRef="IntermediateThrowEvent_02nrfk0" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="176" y="81" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0dlmni4_di" bpmnElement="SequenceFlow_0dlmni4">
+        <di:waypoint x="212" y="99" />
+        <di:waypoint x="338" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_15ijhbs_di" bpmnElement="A">
+        <dc:Bounds x="338" y="59" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_02nrfk0_di" bpmnElement="IntermediateThrowEvent_02nrfk0">
+        <dc:Bounds x="564" y="81" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1px4on2_di" bpmnElement="SequenceFlow_1px4on2">
+        <di:waypoint x="438" y="99" />
+        <di:waypoint x="564" y="99" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

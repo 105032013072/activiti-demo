@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmnx="http://www.bosssoft.com.cn/bpmnx" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_5" name="流程实例操作测试" isExecutable="true" bpmnx:globalNotification="true" bpmnx:version="1">
+    <bpmn:extensionElements>
+      <bpmnx:formDefinition formPage="" formType="" />
+      <bpmnx:timeEffectiveDefinition calendar="workingday" timeDuration="0.000" />
+      <bpmnx:starterDefinition type="arbitrary">
+        <bpmnx:participators />
+      </bpmnx:starterDefinition>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1" name="" activiti:formKey="undefined" activiti:initiator="undefined">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>SequenceFlow_18qynas</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="A" name="申请" bpmnx:isAutoComplete="true">
+      <bpmn:extensionElements>
+        <bpmnx:participatorDefinition participatorType="assignee">
+          <bpmnx:candidate participatorSource="DEFAULT" />
+          <bpmnx:assignee participatorSource="PROCESS_STARTER">${process_starter}</bpmnx:assignee>
+        </bpmnx:participatorDefinition>
+        <bpmnx:formDefinition formPage="" formType="" />
+        <bpmnx:timeEffectiveDefinition calendar="workingday" timeDuration="0.000" />
+        <bpmnx:authorityDefinition />
+        <bpmnx:carbonCopy>
+          <bpmnx:participators />
+        </bpmnx:carbonCopy>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_18qynas</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hxhnvs</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_18qynas" sourceRef="StartEvent_1" targetRef="A" />
+    <bpmn:sequenceFlow id="SequenceFlow_0hxhnvs" sourceRef="A" targetRef="ExclusiveGateway_1p42ctq" />
+    <bpmn:parallelGateway id="ExclusiveGateway_1p42ctq" name="">
+      <bpmn:extensionElements />
+      <bpmn:incoming>SequenceFlow_0hxhnvs</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0a2oi8d</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1dez399</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:userTask id="B" name="审核B">
+      <bpmn:extensionElements>
+        <bpmnx:participatorDefinition participatorType="candidate">
+          <bpmnx:candidate participatorSource="DEFAULT">
+            <bpmnx:participators>
+              <bpmnx:participator type="USER" id="u01" name="小明" />
+              <bpmnx:participator type="POSITION" id="p03" name="研发" />
+            </bpmnx:participators>
+          </bpmnx:candidate>
+          <bpmnx:assignee participatorSource="DEFAULT" />
+        </bpmnx:participatorDefinition>
+        <bpmnx:formDefinition formPage="" formType="" />
+        <bpmnx:timeEffectiveDefinition calendar="workingday" timeDuration="0.000" />
+        <bpmnx:authorityDefinition />
+        <bpmnx:carbonCopy>
+          <bpmnx:participators />
+        </bpmnx:carbonCopy>
+        <bpmnx:multiInstanceLoopCharacteristics isSequential="false" multiInstanceMode="operatormode">
+          <bpmnx:completionCondition>${act_countersignature_rateOfPassing&gt;=1}</bpmnx:completionCondition>
+        </bpmnx:multiInstanceLoopCharacteristics>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0a2oi8d</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_10p5ixf</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0a2oi8d" sourceRef="ExclusiveGateway_1p42ctq" targetRef="B" />
+    <bpmn:userTask id="C" name="审核C">
+      <bpmn:extensionElements>
+        <bpmnx:participatorDefinition participatorType="candidate">
+          <bpmnx:candidate participatorSource="DEFAULT">
+            <bpmnx:participators>
+              <bpmnx:participator type="USER" id="u02" name="小雨" />
+              <bpmnx:participator type="USER" id="u03" name="小王" />
+              <bpmnx:participator type="USER" id="u04" name="张三" />
+              <bpmnx:participator type="USER" id="u05" name="李四" />
+            </bpmnx:participators>
+          </bpmnx:candidate>
+          <bpmnx:assignee participatorSource="DEFAULT" />
+        </bpmnx:participatorDefinition>
+        <bpmnx:formDefinition formPage="" formType="" />
+        <bpmnx:timeEffectiveDefinition calendar="workingday" timeDuration="0.000" />
+        <bpmnx:authorityDefinition />
+        <bpmnx:carbonCopy>
+          <bpmnx:participators />
+        </bpmnx:carbonCopy>
+        <bpmnx:multiInstanceLoopCharacteristics isSequential="false" multiInstanceMode="candidatemode">
+          <bpmnx:completionCondition>${act_countersignature_rateOfPassing&gt;=1}</bpmnx:completionCondition>
+        </bpmnx:multiInstanceLoopCharacteristics>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1dez399</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ap7e1y</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1dez399" sourceRef="ExclusiveGateway_1p42ctq" targetRef="C" />
+    <bpmn:sequenceFlow id="SequenceFlow_10p5ixf" sourceRef="B" targetRef="ExclusiveGateway_0uh4nlb" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ap7e1y" sourceRef="C" targetRef="ExclusiveGateway_0uh4nlb" />
+    <bpmn:parallelGateway id="ExclusiveGateway_0uh4nlb" name="">
+      <bpmn:extensionElements />
+      <bpmn:incoming>SequenceFlow_10p5ixf</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1ap7e1y</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ohnd8h</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:intermediateThrowEvent id="IntermediateThrowEvent_1va0uss">
+      <bpmn:extensionElements />
+      <bpmn:incoming>SequenceFlow_0ohnd8h</bpmn:incoming>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0ohnd8h" sourceRef="ExclusiveGateway_0uh4nlb" targetRef="IntermediateThrowEvent_1va0uss" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_5">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0zg1lst_di" bpmnElement="A">
+        <dc:Bounds x="259" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_18qynas_di" bpmnElement="SequenceFlow_18qynas">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="259" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0hxhnvs_di" bpmnElement="SequenceFlow_0hxhnvs">
+        <di:waypoint x="359" y="120" />
+        <di:waypoint x="409" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ParallelGateway_0ho1465_di" bpmnElement="ExclusiveGateway_1p42ctq">
+        <dc:Bounds x="409" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1i7x2ec_di" bpmnElement="B">
+        <dc:Bounds x="516" y="-17" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0a2oi8d_di" bpmnElement="SequenceFlow_0a2oi8d">
+        <di:waypoint x="434" y="95" />
+        <di:waypoint x="434" y="23" />
+        <di:waypoint x="516" y="23" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1bpte8w_di" bpmnElement="C">
+        <dc:Bounds x="508" y="193" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1dez399_di" bpmnElement="SequenceFlow_1dez399">
+        <di:waypoint x="434" y="145" />
+        <di:waypoint x="434" y="233" />
+        <di:waypoint x="508" y="233" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_10p5ixf_di" bpmnElement="SequenceFlow_10p5ixf">
+        <di:waypoint x="616" y="23" />
+        <di:waypoint x="720" y="23" />
+        <di:waypoint x="720" y="95" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ap7e1y_di" bpmnElement="SequenceFlow_1ap7e1y">
+        <di:waypoint x="608" y="233" />
+        <di:waypoint x="720" y="233" />
+        <di:waypoint x="720" y="145" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ParallelGateway_0jvmb4o_di" bpmnElement="ExclusiveGateway_0uh4nlb">
+        <dc:Bounds x="695" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateThrowEvent_1va0uss_di" bpmnElement="IntermediateThrowEvent_1va0uss">
+        <dc:Bounds x="829" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ohnd8h_di" bpmnElement="SequenceFlow_0ohnd8h">
+        <di:waypoint x="745" y="120" />
+        <di:waypoint x="829" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

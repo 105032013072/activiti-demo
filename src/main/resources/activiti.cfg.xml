@@ -1,0 +1,133 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	<!-- 
+		ProcessEngineConfiguration processEngineConfiguration = ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();
+		//连接数据库的配置
+		processEngineConfiguration.setJdbcDriver("com.mysql.jdbc.Driver");
+		processEngineConfiguration.setJdbcUrl("jdbc:mysql://localhost:3306/itcast0711activiti?useUnicode=true&characterEncoding=utf8");
+		processEngineConfiguration.setJdbcUsername("root");
+		processEngineConfiguration.setJdbcPassword("root");
+		
+		/**
+		 	public static final String DB_SCHEMA_UPDATE_FALSE = "false";不能自动创建表，需要表存在
+  			public static final String DB_SCHEMA_UPDATE_CREATE_DROP = "create-drop";先删除表再创建表
+  			public static final String DB_SCHEMA_UPDATE_TRUE = "true";如果表不存在，自动创建表
+		 */
+		processEngineConfiguration.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+	 -->
+	
+	<bean id="SpiConfiguration" class="org.activiti.engine.spi.SpiConfiguration">
+           <property name="omService">
+              <bean class="com.bosssoft.platform.activiti.spi.DefaultOMServiceImpl"/>
+           </property>
+               
+           <property name="notificationListeners">
+           	 <list>
+              <bean class="org.activiti.engine.spi.notification.impl.EmailNotificationListener"/>
+           	 </list>
+           </property>
+           
+      </bean>
+	
+	<bean id="participatorService" class="com.bosssoft.platform.activiti.CustomParticipatorService"/>
+	
+	<bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+	
+		<!--<property name="jdbcDriver" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.10.21:1521/nontax"></property>
+		<property name="jdbcUsername" value="bpmnx"></property>
+		<property name="jdbcPassword" value="bs"></property>
+		<property name="databaseSchema" value="BPMNX"></property>--><!--oracle 需要配置该属性-->
+		
+		<!--<property name="jdbcDriver" value="org.postgresql.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/activiti"></property>
+		<property name="jdbcUsername" value="postgres"></property>
+		<property name="jdbcPassword" value="123"></property>-->
+		
+		<property name="jdbcDriver" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/activiti?useUnicode=true&amp;characterEncoding=utf8"></property>
+		<property name="jdbcUsername" value="root"></property>
+		<property name="jdbcPassword" value="root"></property>
+		<property name="databaseSchema" value="BPMNX"></property>
+		
+		<!-- 没有表创建表 -->
+		<property name="databaseSchemaUpdate" value="true"></property>
+	    <property name="jobExecutorActivate" value="true" />
+	    <property name="databaseTablePrefix" value="X"></property>
+	  
+	 <!-- <property name="typedEventListeners">
+        	<map>
+        		<entry key="PROCESS_ACTIVED">
+        			<bean class="com.bosssoft.install.activiti.event.ProcessActiveAndSupendListener"/>
+        		</entry>
+        		<entry key="PROCESS_SUPENDED">
+        			<bean class="com.bosssoft.install.activiti.event.ProcessActiveAndSupendListener"/>
+        		</entry>
+        		<entry key="TASK_ACTIVED">
+        			<bean class="com.bosssoft.install.activiti.event.TaskActiveAndSupendListener"/>
+        		</entry>
+        		
+        		<entry key="TASK_SUPENDED">
+        			<bean class="com.bosssoft.install.activiti.event.TaskActiveAndSupendListener"/>
+        		</entry>
+        		
+        		<entry key="TASK_CLAIMED">
+        			<bean class="com.bosssoft.install.activiti.event.TaskCliamAndUnListener"/>
+        		</entry>
+        		
+        		<entry key="TASK_UNCLAIMED">
+        			<bean class="com.bosssoft.install.activiti.event.TaskCliamAndUnListener"/>
+        		</entry>
+        		
+        		<entry key="TASK_BACKED">
+        			<bean class="com.bosssoft.install.activiti.event.TaskBackAndWithdrawListener"/>
+        		</entry>
+        		
+        		<entry key="TASK_WITHDRAWED">
+        			<bean class="com.bosssoft.install.activiti.event.TaskBackAndWithdrawListener"/>
+        		</entry>
+        		
+        		
+        		
+       
+        	</map>
+       </property>-->
+	   
+	   <property name="SpiConfiguration" ref="SpiConfiguration"/>
+	   
+	   <property name="beans">
+        	<map>
+        		<entry key="participatorService" value-ref="participatorService"/>
+        	</map>
+        </property>
+	
+	 <!--   <property name="typedEventListeners">
+        	<map>
+        		<entry key="TASK_ASSIGNED">
+        			<bean class="org.activiti.engine.impl.bpmn.listener.TaskAssignedForConsignListener"/>
+        		</entry>
+        		
+        		<entry key="ENGINE_CREATED">
+        			<bean class="org.activiti.engine.impl.bpmn.listener.StartEngineForLoadRunActivityDefListener">
+        			 <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+        			</bean>
+        		</entry>
+        		
+        		<entry key="TASK_CREATED">
+        			<list>
+        			<bean class="org.activiti.engine.impl.bpmn.listener.TaskCreateForAutoCompleteListener"/>
+        			 <bean class="com.bosssoft.install.activiti.listener.TaskCreateGrobleListener"/>
+        			</list>
+        		</entry>
+        		
+        	</map>
+      </property>-->
+      
+	
+	</bean>
+
+</beans>
